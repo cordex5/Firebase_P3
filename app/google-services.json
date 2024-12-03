@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "417166790854",
+    "project_id": "fir-p3-e376e",
+    "storage_bucket": "fir-p3-e376e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417166790854:android:b250754bddd00f0cda47c7",
+        "android_client_info": {
+          "package_name": "com.example.firebase_p3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4iPYaJpmtHAsMG_ysquCfuClAZlJ4DKM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
