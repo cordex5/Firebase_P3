@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 
+@SuppressLint("StaticFieldLeak")
 private lateinit var messageTextView: TextView
 class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n", "MissingInflatedId")
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             insets
 
         }     // Inicjalizacja TextView
-// Firebase setup
+        // Firebase setup
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("message")
 
@@ -57,12 +58,16 @@ class MainActivity : AppCompatActivity() {
                         .addOnFailureListener {
                             Log.e(TAG, "Nie udało się zapisać ciśnienia w Firebase", it)
                         }
+
                 }
 
                 override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
             }
             sensorManager.registerListener(sensorEventListenerPressure, sensorPressure, SensorManager.SENSOR_DELAY_NORMAL)
         }
+
+
+
 
         // Nasłuch na dane z Firebase
         myRef.addValueEventListener(object : ValueEventListener {
@@ -73,22 +78,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.w(TAG, "Failed to read value.", error.toException())
+                Log.w(TAG, "Nie udalo sie odczytac wrtosci z danych", error.toException())
+                messageTextView.text = "Otrzymane dane: Nie udalo sie odczytac wrtosci z danych"
             }
         })
 
-        // Dodanie przycisku do testowego wywołania wyjątku
-        val crashButton = Button(this)
-        crashButton.text = "Test Crash"
-        crashButton.setOnClickListener {
-            throw RuntimeException("Test Crash") // Wymuszony błąd do testowania
-        }
 
-        addContentView(
-            crashButton, ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-        )
     }
 }
